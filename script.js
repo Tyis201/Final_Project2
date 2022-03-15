@@ -2,17 +2,18 @@ const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
+const leftpaddleHeight = grid * 200;
 const maxPaddleY = canvas.height - grid - paddleHeight;
 
-var paddleSpeed = 6;
+var paddleSpeed = 8;
 var ballSpeed = 5;
 
 const leftPaddle = {
   // start in the middle of the game on the left side
-  x: grid * 2,
-  y: canvas.height / 2 - paddleHeight / 2,
+  x: grid * 0,
+  y: canvas.height / 20 - paddleHeight / 5,
   width: grid,
-  height: paddleHeight,
+  height: leftpaddleHeight,
 
   // paddle velocity
   dy: 0
@@ -46,9 +47,9 @@ const ball = {
 // @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
 function collides(obj1, obj2) {
   return obj1.x < obj2.x + obj2.width &&
-         obj1.x + obj1.width > obj2.x &&
-         obj1.y < obj2.y + obj2.height &&
-         obj1.y + obj1.height > obj2.y;
+       obj1.x + obj1.width > obj2.x &&
+       obj1.y < obj2.y + obj2.height &&
+       obj1.y + obj1.height > obj2.y;
 }
 
 // game loop
@@ -103,17 +104,14 @@ function loop() {
       ball.resetting = false;
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
-    }, 400);
+    }, 1000);
   }
 
-  // check to see if ball collides with paddle. if they do change x velocity
-  if (collides(ball, leftPaddle)) {
+if(collides(ball, leftPaddle)) {
     ball.dx *= -1;
+    ball.x =leftPaddle.x + leftPaddle.width;
+}
 
-    // move ball next to the paddle otherwise the collision will happen again
-    // in the next frame
-    ball.x = leftPaddle.x + leftPaddle.width;
-  }
   else if (collides(ball, rightPaddle)) {
     ball.dx *= -1;
 
@@ -126,17 +124,17 @@ function loop() {
   context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
   // draw walls
-  context.fillStyle = 'lightgrey';
+  context.fillStyle = 'white';
   context.fillRect(0, 0, canvas.width, grid);
   context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
-
+  
   // draw dotted line down the middle
   for (let i = grid; i < canvas.height - grid; i += grid * 2) {
     context.fillRect(canvas.width / 2 - grid / 2, i, grid, grid);
   }
 }
 
-// listen to keyboard events to move the paddles
+
 document.addEventListener('keydown', function(e) {
 
   // up arrow key
@@ -148,14 +146,6 @@ document.addEventListener('keydown', function(e) {
     rightPaddle.dy = paddleSpeed;
   }
 
-  // w key
-  if (e.which === 87) {
-    leftPaddle.dy = -paddleSpeed;
-  }
-  // a key
-  else if (e.which === 83) {
-    leftPaddle.dy = paddleSpeed;
-  }
 });
 
 // listen to keyboard events to stop the paddle if key is released
@@ -164,10 +154,11 @@ document.addEventListener('keyup', function(e) {
     rightPaddle.dy = 0;
   }
 
-  if (e.which === 83 || e.which === 87) {
-    leftPaddle.dy = 0;
-  }
 });
 
 // start the game
 requestAnimationFrame(loop);
+
+function levels (){
+
+}
