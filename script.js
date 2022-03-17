@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 15;
@@ -5,8 +6,8 @@ const paddleHeight = grid * 5; // 80
 const leftpaddleHeight = grid * 200;
 const maxPaddleY = canvas.height - grid - paddleHeight;
 
-var paddleSpeed = 5;
-var ballSpeed = 2;
+var paddleSpeed = 6;
+var ballSpeed = 3;
 
 const leftPaddle = {
   x: grid * 0,
@@ -168,3 +169,4 @@ setTimeout (function nextlevel (){
 }, 33000)
 
 requestAnimationFrame(game);
+
