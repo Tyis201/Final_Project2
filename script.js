@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 15;
@@ -168,3 +169,4 @@ setTimeout (function nextlevel (){
 }, 33000)
 
 requestAnimationFrame(game);
+} main
