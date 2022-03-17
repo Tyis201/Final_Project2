@@ -5,46 +5,35 @@ const paddleHeight = grid * 5; // 80
 const leftpaddleHeight = grid * 200;
 const maxPaddleY = canvas.height - grid - paddleHeight;
 
-var paddleSpeed = 8;
-var ballSpeed = 5;
+var paddleSpeed = 5;
+var ballSpeed = 2;
 
 const leftPaddle = {
-  // start in the middle of the game on the left side
   x: grid * 0,
   y: canvas.height / 20 - paddleHeight / 5,
   width: grid,
   height: leftpaddleHeight,
-
-  // paddle velocity
   dy: 0
 };
+
 const rightPaddle = {
-  // start in the middle of the game on the right side
   x: canvas.width - grid * 3,
   y: canvas.height / 2 - paddleHeight / 2,
   width: grid,
   height: paddleHeight,
-
-  // paddle velocity
   dy: 0
 };
+
 const ball = {
-  // start in the middle of the game
   x: canvas.width / 2,
   y: canvas.height / 2,
   width: grid,
   height: grid,
-
-  // keep track of when need to reset the ball position
   resetting: false,
-
-  // ball velocity (start going to the top-right corner)
   dx: ballSpeed,
   dy: -ballSpeed
 };
 
-// check for collision between two objects using axis-aligned bounding box (AABB)
-// @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
 function collides(obj1, obj2) {
   return obj1.x < obj2.x + obj2.width &&
        obj1.x + obj1.width > obj2.x &&
@@ -53,7 +42,7 @@ function collides(obj1, obj2) {
 }
 
 // game loop
-function loop() {
+const game = function loop() {
   requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
@@ -157,8 +146,25 @@ document.addEventListener('keyup', function(e) {
 });
 
 // start the game
-requestAnimationFrame(loop);
+requestAnimationFrame(game);
 
-function levels (){
+
+setTimeout (function yes (){
+  
+  document.body.removeChild(canvas);
+ var level = 2
+var newlevel = document.getElementById('level');
+var thislevel = document.createElement('h1');
+thislevel.textContent = " Level " + level ++;
+newlevel.appendChild(thislevel)
 
 }
+
+, 30000)
+
+setTimeout (function nextlevel (){
+  document.body.removeChild(level)
+  document.body.appendChild(canvas)
+}, 33000)
+
+requestAnimationFrame(game);

@@ -9,4 +9,9 @@ html, body {
     align-items: center;
     justify-content: center;
   }
+
+  h1 {
+    color: azure;
+    font-size: 60px;
+  }
   
